@@ -1,0 +1,6 @@
+[MASTER]
+disable=
+    # missing-module-docstring,
+    # missing-class-docstring,
+    # missing-function-docstring,
+    import-error # (E0401) Used when pylint has been unable to import a module

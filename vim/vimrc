@@ -1,0 +1,273 @@
+" ============================================
+" https://github.com/mbrochh/vim-as-a-python-ide
+" References:
+" https://jeffkreeftmeijer.com/vim-number/
+" ============================================
+
+" Automatic reloading of .vimrc
+autocmd! bufwritepost .vimrc source %
+
+" Better copy & paste
+" Press F2 to switch between Normal mode and Paste mode.
+" At the bottom, the VIM status bar will show ``-- INSERT (paste) --``.
+" Press p or ctrl-shift-v to paste.
+set pastetoggle=<F2>
+set clipboard=unnamed
+
+" Mouse and backspace
+set mouse=a  " on OSX press ALT and click
+set bs=2     " make backspace behave like normal again
+
+" easier formatting of paragraphs
+vmap Q gq
+nmap Q gqap
+
+" Rebind <Leader> key to use comma ',' instead of colon ':'
+let mapleader = ","
+
+" Bind nohl
+" Removes highlight of your last search
+" ``<C>`` stands for ``CTRL`` and therefore ``<C-n>`` stands for ``CTRL+n``
+noremap <C-n> :nohl<CR>
+vnoremap <C-n> :nohl<CR>kk
+" Quick save command
+noremap <C-Z> :update<CR>
+vnoremap <C-Z> <C-C>:update<CR>
+inoremap <C-Z> <C-O>:update<CR>
+
+" Quick undo command
+noremap <C-X> :u<CR>
+vnoremap <C-X> <C-C>:u<CR>
+inoremap <C-X> <C-O>:u<CR>
+
+" Quick quit command
+noremap <Leader>e :quit<CR>     " quit current window
+noremap <Leader>E :qa!<CR>      " quit all windows
+
+" Bind Ctrl+<movement> keys to move around the windows when using split mode,
+" instead of using Ctrl+w + <movement>
+map <C-j> <c-w>j    " move to next window below
+map <C-k> <c-w>k    " move to next window above
+map <C-l> <c-w>l    " move to next window on the right
+map <C-h> <c-w>h    " move to next window on the left
+
+" Easier moving between tabs
+map <Leader>n <esc>:tabprevious<CR>
+map <Leader>m <esc>:tabnext<CR>
+
+" Map sort function to a key
+vnoremap <Leader>s :sort<CR>
+
+" Easier moving of code blocks
+" Try to go into visual mode (v), thenselect several lines of code here and
+" then press ``>`` several times.
+vnoremap < <gv  " better indentation
+vnoremap > >gv  " better indentation
+
+" Enable syntax highlighting
+" You need to reload this file for the change to apply
+filetype on
+filetype plugin indent on
+syntax on
+
+" Enable XML syntax
+" let g:xml_syntax_folding=1
+" au FileType xml setlocal foldmethod=syntax
+
+" Showing line numbers and length
+set number relativenumber  " show absolute & relative line number
+:augroup numbertoggle
+:  autocmd!
+:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+:augroup END
+set tw=79           " width of document (used by gd) not to exceed 79 chars
+set nowrap          " don't automatically wrap on load
+set fo-=t           " don't automatically wrap text when typing
+set colorcolumn=80
+highlight ColorColumn ctermbg=233
+
+" Useful settings
+set history=700
+set undolevels=700
+
+" Default indentation with 2 spaces
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set shiftround
+set expandtab
+
+" Auto detection of *.py and set tab with 4 white space
+autocmd Filetype python setlocal ts=4 sw=4 sts=4 expandtab shiftround
+
+" Make search case insensitive
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+" Disable backup and swap files - they trigger too many events
+" for file system watchers
+set nobackup
+set nowritebackup
+set noswapfile
+
+" ===================================================
+" Setup Pathogen to manage your plugins
+" mkdir -p ~/.vim/autoload ~/.vim/bundle
+" curl -so ~/.vim/autoload/pathogen.vim https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+" Install any plugin into a .vim/bundle/plugin-name/ folder
+call pathogen#infect()
+" ===================================================
+
+" ===================================================
+" PLUGINS SETUP & INSTALLATION
+" ===================================================
+
+" NERDTree System File Explorer
+" git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
+noremap <Leader>t :NERDTreeToggle<CR> " Toggle NERDTree
+
+" vim-surround installation and usages
+" cd ~/.vim/bundle
+" git clone git://github.com/tpope/vim-surround.git
+" Usage
+" In VIM normal mode:
+" yss<surround-char>: surround at current line
+" S<surround-char>  : surround selected text (Visual mode)
+" ds<surround-char> : remove surround char (cursor inside surround quote)
+" cs<current-surround-char><new-surround-char>: change new surround char " (cursor inside surround quote)
+
+" Settings for vim-powerline
+" Reference: https://github.com/powerline/powerline
+" set rtp+=/usr/local/lib/python3.7/site-packages/powerline/bindings/vim/
+set rtp+=/usr/local/lib/python3.8/site-packages/powerline/bindings/vim/
+let g:powerline_pycmd="py3"
+set laststatus=2  " Always show statusline
+set showtabline=2 " Always display the tabline, even if there is only one tab
+set noshowmode    " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+set t_Co=256      " Use 256 colours (Use this setting only if your terminal supports 256 colours)
+
+" MUST be inserted BEFORE the colorscheme command
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+
+" Color scheme
+" mkdir -p ~/.vim/colors && cd ~/.vim/colors
+" wget -O wombat256mod.vim http://www.vim.org/scripts/download_script.php?src_id=13400
+" color wombat256mod
+" color atom-dark-256
+" color atom-dark
+
+set background=dark
+" set background=light
+
+" GRUVBOX color scheme
+" colorscheme gruvbox
+" let g:gruvbox_contrast_dark = 'medium'
+" let g:gruvbox_improved_warnings = '0'
+
+" Solarized color scheme
+" https://github.com/lifepillar/vim-solarized8
+colorscheme solarized8
+let g:solarized_termtrans = 0
+
+" Settings for CTRL-P
+" Full path fuzzy file, buffer, mru, tag, ... finder for Vim
+" Reference: https://github.com/ctrlpvim/ctrlp.vim
+" cd ~/.vim/bundle
+" git clone https://github.com/ctrlpvim/ctrlp.vim.git ctrlp.vim
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+let g:ctrlp_max_height = 30
+set wildignore+=*.pyc
+set wildignore+=*_build/*
+set wildignore+=*/coverage/*
+
+" Settings for jedi-vim to have autocompletion mode for python
+" cd ~/.vim/bundle
+" git clone git://github.com/davidhalter/jedi-vim.git
+let g:jedi#usages_command = "<leader>z"
+let g:jedi#popup_on_dot = 1
+let g:jedi#popup_select_first = 0
+let g:jedi#use_splits_not_buffers = "left"
+let g:jedi#show_call_signatures = "1"
+
+map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
+
+" NerdTree Git plugin showing git status flag
+" cd ~/.vim/bundle
+" git clone https://github.com/scrooloose/nerdtree-git-plugin.git
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
+
+" nerdcommenter: https://github.com/scrooloose/nerdcommenter
+" cd ~/.vim/bundle
+" git clone https://github.com/scrooloose/nerdcommenter.git
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 0
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+" Set a language to use its alternate delimiters by default
+let g:NERDAltDelims_java = 1
+let g:NERDAltDelims_python = 1
+
+" Custom formats or override the defaults
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+
+" Python folding
+" mkdir -p ~/.vim/ftplugin
+" wget -O ~/.vim/ftplugin/python_editing.vim http://www.vim.org/scripts/download_script.php?src_id=5492
+" Usage: press F to collapse/expand all functions and classes.
+"        select specific function/class and press f to collapse/expand block
+"        of codes.
+" set nofoldenable
+
+" Synstactic checked plugin
+" https://github.com/vim-syntastic/syntastic
+" cd ~/.vim/bundle && \
+" git clone --depth=1 https://github.com/vim-syntastic/syntastic.git
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_checkers = ['python', 'pycodestyle', 'pyflakes', 'pylint']
+
+" Repeat.vim
+" https://github.com/tpope/vim-repeat
+" cd ~/.vim/bundle
+" git clone git://github.com/tpope/vim-repeat.git
+
+" Auto Pairs
+" https://github.com/jiangmiao/auto-pairs
+" cd ~/.vim/bundle
+" git clone git://github.com/jiangmiao/auto-pairs.git ~/.vim/bundle/auto-pairs
+
+" Password Safe and edit openssl encrypted files
+" https://www.vim.org/scripts/script.php?script_id=2012
+" git clone https://github.com/vim-scripts/openssl.vim.git ~/.vim/bundle
+" File extentions: .des3 .aes .bf .bfa .idea .cast .rc2 .rc4 .rc5
+let g:openssl_backup = 1 " Make a backup of an encrypted file before writing changes

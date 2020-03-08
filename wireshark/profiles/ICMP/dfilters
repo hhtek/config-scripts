@@ -1,0 +1,6 @@
+"ICMP ttl expired transit" (icmp.type == 11)
+"ICMP timestamp" (icmp.type == 13 or icmp.type == 14)
+"ICMP flow" icmp.ident == 12
+"ICMP reply" icmp.type == 0
+"ICMP request" icmp.type == 8
+"ICMP response (ms)" icmp.resptime >= 10

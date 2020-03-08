@@ -1,0 +1,9 @@
+[submodule "macOS/terminal.app.themes/Smyck-Color-Scheme"]
+	path = macOS/terminal.app.themes/Smyck-Color-Scheme
+	url = https://github.com/hukl/Smyck-Color-Scheme.git
+[submodule "macOS/terminal.app.themes/macos-terminal-themes"]
+	path = macOS/terminal.app.themes/macos-terminal-themes
+	url = https://github.com/lysyi3m/macos-terminal-themes.git
+[submodule "macOS/terminal.app.themes/terminal-app"]
+	path = macOS/terminal.app.themes/terminal-app
+	url = https://github.com/dracula/terminal-app.git
