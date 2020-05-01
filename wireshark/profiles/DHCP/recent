@@ -1,4 +1,4 @@
-# Recent settings file for Wireshark 3.0.6.
+# Recent settings file for Wireshark 3.2.3.
 #
 # This file is regenerated each time Wireshark is quit
 # and when changing configuration profile.
@@ -84,7 +84,7 @@ column.width:
         "%Cus:dhcp.ip.relay", 182,
         "%Cus:dhcp.server", -1,
         "%Cus:frame.coloring_rule.name", 112,
-        "%Cus:dhcp.id", 445,
+        "%Cus:dhcp.id", 637,
         "%Cus:bootp.option.dhcp", -1,
         "%Cus:bootp.option.domain_name_server", -1
 

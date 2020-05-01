@@ -297,6 +297,7 @@ httpDebug () {  # httpDebug:  Download a web page and show info on what took tim
   total: %{time_total}\n";
 }
 
+py () { python "$1"; }  # Execute a python script
 py3 () { python3 -m venv "$1"; }  # Create a python virtual environment
 pyvenv () {  # Activate or deactivate python virtual environment
   case $1 in

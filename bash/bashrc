@@ -25,6 +25,7 @@ POWERLINE_BASH_SELECT=1
 # -------------------------------
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 export PATH="/usr/local/sbin/:$PATH"
+# export PATH="~/.aws/aws-cli/:$PATH"
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # Set Paths for python@3.8 first in the PATH environment

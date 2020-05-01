@@ -256,6 +256,20 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['python', 'pycodestyle', 'pyflakes', 'pylint']
 
+" IndentLine
+" https://github.com/Yggdroot/indentLine
+" git clone git@github.com:Yggdroot/indentLine.git ~/.vim/bundle
+" let g:indentLine_setColors = 0
+let g:indentLine_color_term = 239
+" let g:indentLine_char = '┊'
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+let g:indentLine_leadingSpaceEnabled = 1
+let g:indentLine_leadingSpaceChar = '·'
+let g:indentLine_concealcursor = 'inc'
+let g:indentLine_conceallevel = 2
+set listchars=tab:·\ ,trail:·
+set list
+
 " Repeat.vim
 " https://github.com/tpope/vim-repeat
 " cd ~/.vim/bundle
